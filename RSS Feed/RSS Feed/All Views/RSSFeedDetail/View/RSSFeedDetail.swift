@@ -23,8 +23,8 @@ struct RSSFeedDetail: View {
                         .font(.system(size: 18))
                     Text("By: \(feed.creator) on \(feed.pubDate)")
                         .font(.system(size: 12))
-                    Text(feed.content ?? "")
-                        .font(.system(size: 14))
+                    
+                    AttributedText(.themedHtml(withBody:feed.content ?? "", theme: Theme.default))
                 }
                 .padding(16)
             }
