@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RSSFeed: Codable, Identifiable {
+struct RSSFeed: Codable, Identifiable, Hashable {
     let id = UUID().uuidString
     var guid: String
     var title: String

@@ -17,7 +17,7 @@ struct RSSFeedView: View {
 //    private var items: FetchedResults<Item>
     
     @ObservedObject var viewModel: RSSFeedViewModel = RSSFeedViewModel()
-    
+        
     var body: some View {
         LoadingView(isShowing: $viewModel.isFetchingData) {
             NavigationView {
@@ -28,7 +28,7 @@ struct RSSFeedView: View {
                 
                 //List
                 List {
-                    ForEach(self.viewModel.feeds, id: \.id) { feed in
+                    ForEach(self.viewModel.feeds, id: \.self) { feed in
                         NavigationLink {
                             Text(feed.title)
                         } label: {
@@ -42,6 +42,8 @@ struct RSSFeedView: View {
                 .overlay(Group {
                     if self.viewModel.feeds.count == 0 {
                         Text("No data found!")
+                    } else {
+                        let _ = print(self.viewModel.feeds)
                     }
                 })
             }

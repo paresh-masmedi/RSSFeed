@@ -24,10 +24,10 @@ class RSSFeedViewModel: ObservableObject {
                 case .finished:
                     print("Finished")
                 }
+                self.isFetchingData = false
             }
             receiveValue: { [weak self] feeds in
                 self?.feeds = feeds
-                self?.isFetchingData = false
             }
             .store(in: &cancellables)
     }
