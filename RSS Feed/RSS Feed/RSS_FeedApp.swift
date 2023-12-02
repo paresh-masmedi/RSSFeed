@@ -13,7 +13,7 @@ struct RSS_FeedApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RSSFeedView()
+            RSSFeedView(viewModel: RSSFeedViewModel())
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

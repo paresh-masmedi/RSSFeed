@@ -16,7 +16,7 @@ struct RSSFeedView: View {
 //        animation: .default)
 //    private var items: FetchedResults<Item>
     
-    @ObservedObject var viewModel: RSSFeedViewModel = RSSFeedViewModel()
+    @ObservedObject var viewModel: RSSFeedViewModel
         
     @State var arrStr = ["A", "B", "C"]
 
@@ -26,8 +26,7 @@ struct RSSFeedView: View {
                     List {
                         ForEach(viewModel.feeds, id: \.self) { feed in
                             NavigationLink {
-                                Text(feed.title)
-                                Text(feed.pubDate)
+                                RSSFeedDetail(feed: feed)
                                 
                             } label: {
                                 Text(feed.title)
@@ -45,13 +44,6 @@ struct RSSFeedView: View {
         }
     }
 }
-
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
 
 struct RSSFeedView_Previews: PreviewProvider {
     static var previews: some View {
