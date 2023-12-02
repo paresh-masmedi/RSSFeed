@@ -18,44 +18,57 @@ struct RSSFeedView: View {
     
     @ObservedObject var viewModel: RSSFeedViewModel = RSSFeedViewModel()
         
+    @State var arrStr = ["A", "B", "C"]
+
     var body: some View {
-        LoadingView(isShowing: $viewModel.isFetchingData) {
-            NavigationView {
-                //Navigation Title
-                Text("")
-                    .navigationBarTitle("Medium RSS", displayMode: .inline)
-                    .foregroundColor(.primary)
-                
-                //List
+//        LoadingView(isShowing: $viewModel.isFetchingData) {
+//            NavigationView {
+//                ZStack(alignment: .top) {
+//                    VStack(alignment: .leading, spacing: 16) {
+//                        ForEach(viewModel.feeds, id: \.self) { feed in
+//                            NavigationLink {
+//                                Text(feed.title)
+//                                Text(feed.pubDate)
+//                                
+//                            } label: {
+//                                Text(feed.title)
+//                            }
+//                        }
+//                        
+//                        Spacer()
+//                    }
+//                    .padding(16)
+//                }
+//            }
+//            .edgesIgnoringSafeArea([.leading,.trailing])
+//            .onAppear {
+//                print("RSSFeedView: onAppear")
+//                
+//                //API Call
+//                self.viewModel.getFeedData()
+//            }
+        
+        NavigationView {
                 List {
-                    ForEach(self.viewModel.feeds, id: \.self) { feed in
+                    ForEach(viewModel.feeds, id: \.self) { feed in
                         NavigationLink {
                             Text(feed.title)
+                            Text(feed.pubDate)
+                            
                         } label: {
                             Text(feed.title)
                         }
                     }
                 }
-                //List background removed
-                .listStyle(PlainListStyle())
-                //No data found than below view is shown
-                .overlay(Group {
-                    if self.viewModel.feeds.count == 0 {
-                        Text("No data found!")
-                    } else {
-                        let _ = print(self.viewModel.feeds)
-                    }
-                })
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationViewStyle(StackNavigationViewStyle())
-            .onAppear {
-                print("RSSFeedView: onAppear")
-                
-                //API Call
-                self.viewModel.getFeedData()
-            }
+                .navigationTitle("Medium RSS")
+                .onAppear {
+                    print("RSSFeedView: onAppear")
+                    
+                    //API Call
+                    self.viewModel.getFeedData()
+                }
         }
+//        }
     }
 }
 
