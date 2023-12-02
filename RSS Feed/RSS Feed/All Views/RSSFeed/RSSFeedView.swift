@@ -21,54 +21,28 @@ struct RSSFeedView: View {
     @State var arrStr = ["A", "B", "C"]
 
     var body: some View {
-//        LoadingView(isShowing: $viewModel.isFetchingData) {
-//            NavigationView {
-//                ZStack(alignment: .top) {
-//                    VStack(alignment: .leading, spacing: 16) {
-//                        ForEach(viewModel.feeds, id: \.self) { feed in
-//                            NavigationLink {
-//                                Text(feed.title)
-//                                Text(feed.pubDate)
-//                                
-//                            } label: {
-//                                Text(feed.title)
-//                            }
-//                        }
-//                        
-//                        Spacer()
-//                    }
-//                    .padding(16)
-//                }
-//            }
-//            .edgesIgnoringSafeArea([.leading,.trailing])
-//            .onAppear {
-//                print("RSSFeedView: onAppear")
-//                
-//                //API Call
-//                self.viewModel.getFeedData()
-//            }
-        
-        NavigationView {
-                List {
-                    ForEach(viewModel.feeds, id: \.self) { feed in
-                        NavigationLink {
-                            Text(feed.title)
-                            Text(feed.pubDate)
-                            
-                        } label: {
-                            Text(feed.title)
+        LoadingView(isShowing: $viewModel.isFetchingData) {
+            NavigationView {
+                    List {
+                        ForEach(viewModel.feeds, id: \.self) { feed in
+                            NavigationLink {
+                                Text(feed.title)
+                                Text(feed.pubDate)
+                                
+                            } label: {
+                                Text(feed.title)
+                            }
                         }
                     }
-                }
-                .navigationTitle("Medium RSS")
-                .onAppear {
-                    print("RSSFeedView: onAppear")
-                    
-                    //API Call
-                    self.viewModel.getFeedData()
-                }
+                    .navigationTitle("Medium RSS")
+                    .onAppear {
+                        print("RSSFeedView: onAppear")
+                        
+                        //API Call
+                        self.viewModel.getFeedData()
+                    }
+            }
         }
-//        }
     }
 }
 
