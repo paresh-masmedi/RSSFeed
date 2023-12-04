@@ -10,34 +10,19 @@ import SwiftUI
 struct RSSFeedDetail: View {
     
     @State var feed: RSSFeed
-    @State var htmlContent: String = ""
-    
 
     var body: some View {
-        ScrollView (.vertical, showsIndicators: false) {
-            VStack(alignment: .leading, spacing: 16) {
-                Text(feed.title)
-                    .font(.system(size: 18))
-                Text("By: \(feed.creator) on \(feed.pubDate)")
-                    .font(.system(size: 12))
-                
-                if htmlContent.count > 0 {
-                    WebView(htmlString: htmlContent)
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-//                    AttributedText(.themedHtml(withBody:feed.content ?? "", theme: Theme.default))
-                }
-               
-                //
-            }
-            .padding(16)
-        }
-        .onAppear {
-            print("RSSFeedDetail: onAppear")
+        
+        VStack(alignment: .leading, spacing: 16) {
+            Text(feed.title)
+                .font(.system(size: 18))
+            Text("By: \(feed.creator) on \(feed.pubDate)")
+                .font(.system(size: 12))
             
-            if let content = feed.content, content.count > 0 {
-                htmlContent = generateHTMLString(body: feed.content ?? "")
-            }
+            WebView(htmlString: generateHTMLString(body: feed.content ?? ""))
+                .ignoresSafeArea(edges: .bottom)
         }
+        .padding(16)
     }
     
     func generateHTMLString(body: String) -> String {
