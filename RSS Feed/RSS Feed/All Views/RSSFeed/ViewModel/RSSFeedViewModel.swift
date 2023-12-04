@@ -9,16 +9,25 @@ import Foundation
 import Combine
 
 class RSSFeedViewModel: ObservableObject {
-    
+    //Combine's “cancellation token” that makes it possible for a caller to cancel a publisher
     private var cancellables = Set<AnyCancellable>()
+    
+    //RSS Feed data
     @Published var feeds = [RSSFeed]()
+    //API Status
     @Published var isFetchingData: Bool = false
     
+    //API call to get RSS Feeds
     func getFeedData() {
+        //Clear earlier data
         self.feeds = []
+        
+        //Status as api is fetching data or not
         self.isFetchingData = true
+        
+        //Actual network call
         NetworkManager.shared.getXMLData(type: RSSFeed.self)
-            .sink { completion in
+            .sink { completion in //Know completion
                 switch completion {
                 case .failure(let err):
                     print("RSSFeed API error is \(err.localizedDescription)")
@@ -27,7 +36,8 @@ class RSSFeedViewModel: ObservableObject {
                 }
                 self.isFetchingData = false
             }
-            receiveValue: { [weak self] feeds in
+            receiveValue: { [weak self] feeds in //Data receive
+                //Set data
                 self?.feeds = feeds
             }
             .store(in: &cancellables)

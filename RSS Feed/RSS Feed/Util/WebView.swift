@@ -5,6 +5,8 @@
 //  Created by Paresh Navadiya on 04/12/23.
 //
 
+//Author : https://github.com/danielsaidi/WebViewKit
+
 #if os(iOS)
 typealias WebViewRepresentable = UIViewRepresentable
 #elseif os(macOS)
