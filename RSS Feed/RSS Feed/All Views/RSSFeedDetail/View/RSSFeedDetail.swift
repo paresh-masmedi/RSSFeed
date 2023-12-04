@@ -13,7 +13,11 @@ struct RSSFeedDetail: View {
 
     //Single feed data
     @State var feed: RSSFeed
+    //Know html text changes
     @State var strHTML: String = ""
+    
+    //Static message
+    let constNoContent: String = "No content found!"
 
     var body: some View {
         //Show vertical views
@@ -28,45 +32,32 @@ struct RSSFeedDetail: View {
                 .foregroundStyle(.secondary)
             
             //Check has feed data
-            if strHTML.count > 0 {
-                WebView(htmlString: $strHTML)
-                    .ignoresSafeArea(edges: .bottom)
-                    .onChange(of: colorScheme) { newValue in
-                        print("Theme changes: \(newValue)")
-                        
-                        if colorScheme != newValue {
-                            strHTML = generateHTMLString(body: feed.content ?? "", changedColorScheme: newValue)
-                        }
-                        
+            WebView(htmlString: $strHTML)
+                .ignoresSafeArea(edges: .bottom)
+                .onChange(of: colorScheme) { newValue in
+                    print("Theme changes: \(newValue)")
+                    
+                    if colorScheme != newValue {
+                        strHTML = generateHTMLString(body: feed.content, changedColorScheme: newValue)
                     }
-            } else { //No feed data so message show
-                VStack(alignment: .center) {
-                    //Make in between content in centre
-                    Spacer()
-                    
-                    Text("No feed content found!")
-                        .frame(maxWidth: .infinity, alignment: .center)
-                    
-                    //Make in between content in centre
-                    Spacer()
                     
                 }
-               
-            }
-           
         }
         .padding([.leading, .trailing], 16)
         .onAppear {
             //Log
             print("RSSFeedDetail: onAppear")
             
-            strHTML = generateHTMLString(body: feed.content ?? "")
+            strHTML = generateHTMLString(body: feed.content)
             //print("strHTML: \(strHTML)")
         }
     }
     
     //As we have implement based on theme so need to use custom CSS to load data in webview
-    func generateHTMLString(body: String, changedColorScheme: ColorScheme? = nil) -> String {
+    func generateHTMLString(body: String?, changedColorScheme: ColorScheme? = nil) -> String {
+        //Text
+        let curBody = body ?? constNoContent
+        
         //Its for html body color
         var curThemeColor = "black"
         if let curColorScheme = changedColorScheme {
@@ -106,7 +97,7 @@ struct RSSFeedDetail: View {
                                                       </style>
                                                   </head>
                                                   <body bgcolor="\(curThemeColor)">
-                                                      \(body)
+                                                      \(curBody)
                                                   </body>
                                                   </html>
                                                   """
