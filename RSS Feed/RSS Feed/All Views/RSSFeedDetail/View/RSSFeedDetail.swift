@@ -22,7 +22,7 @@ struct RSSFeedDetail: View {
             WebView(htmlString: generateHTMLString(body: feed.content ?? ""))
                 .ignoresSafeArea(edges: .bottom)
         }
-        .padding(16)
+        .padding([.leading, .trailing], 16)
     }
     
     func generateHTMLString(body: String) -> String {

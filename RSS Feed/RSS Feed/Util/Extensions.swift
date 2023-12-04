@@ -27,3 +27,17 @@ extension UIColor {
     }
 }
 
+struct Theme {
+    let textPrimary: UIColor
+    let textSecondary: UIColor
+    let textInteractive: UIColor
+}
+
+extension Theme {
+    static let `default` = Theme(
+        textPrimary: .label,
+        textSecondary: .secondaryLabel,
+        textInteractive: .systemGreen
+    )
+}
+
