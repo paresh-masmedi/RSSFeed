@@ -19,7 +19,7 @@ struct RSSFeedDetail: View {
             Text(feed.title)
                 .font(.system(size: 18))
             Text("By: \(feed.creator) on \(feed.pubDate)")
-                .font(.system(size: 12))
+                .font(.system(size: 13))
             
             WebView(htmlString: generateHTMLString(body: feed.content ?? ""))
                 .ignoresSafeArea(edges: .bottom)
@@ -42,6 +42,7 @@ struct RSSFeedDetail: View {
                                                   
                                                   body {
                                                   font: -apple-system-body;
+                                                  font-size: 250%;
                                                   color: \(Theme.default.textPrimary.hex);
                                                   }
                                                   
