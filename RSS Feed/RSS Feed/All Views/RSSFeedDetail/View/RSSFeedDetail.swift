@@ -13,6 +13,7 @@ struct RSSFeedDetail: View {
 
     //Single feed data
     @State var feed: RSSFeed
+    @State var strHTML: String = ""
 
     var body: some View {
         //Show vertical views
@@ -27,9 +28,17 @@ struct RSSFeedDetail: View {
                 .foregroundStyle(.secondary)
             
             //Check has feed data
-            if feed.content?.count ?? 0 > 0 {
-                WebView(htmlString: generateHTMLString(body: feed.content ?? ""))
+            if strHTML.count > 0 {
+                WebView(htmlString: $strHTML)
                     .ignoresSafeArea(edges: .bottom)
+                    .onChange(of: colorScheme) { newValue in
+                        print("Theme changes: \(newValue)")
+                        
+                        if colorScheme != newValue {
+                            strHTML = generateHTMLString(body: feed.content ?? "", changedColorScheme: newValue)
+                        }
+                        
+                    }
             } else { //No feed data so message show
                 VStack(alignment: .center) {
                     //Make in between content in centre
@@ -47,12 +56,25 @@ struct RSSFeedDetail: View {
            
         }
         .padding([.leading, .trailing], 16)
+        .onAppear {
+            //Log
+            print("RSSFeedDetail: onAppear")
+            
+            strHTML = generateHTMLString(body: feed.content ?? "")
+            //print("strHTML: \(strHTML)")
+        }
     }
     
     //As we have implement based on theme so need to use custom CSS to load data in webview
-    func generateHTMLString(body: String) -> String {
+    func generateHTMLString(body: String, changedColorScheme: ColorScheme? = nil) -> String {
         //Its for html body color
-        let curTheme = colorScheme == .dark ? "black" : "white"
+        var curThemeColor = "black"
+        if let curColorScheme = changedColorScheme {
+            curThemeColor = curColorScheme == .dark ? "black" : "white"
+        } else {
+            curThemeColor = colorScheme == .dark ? "black" : "white"
+        }
+        print("curThemeColor: \(curThemeColor)")
         return """
                                                   <!doctype html>
                                                   <html lang="en">
@@ -83,7 +105,7 @@ struct RSSFeedDetail: View {
                                                   }
                                                       </style>
                                                   </head>
-                                                  <body bgcolor="\(curTheme)">
+                                                  <body bgcolor="\(curThemeColor)">
                                                       \(body)
                                                   </body>
                                                   </html>
