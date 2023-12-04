@@ -59,16 +59,15 @@ struct RSSFeedDetail: View {
     }
     
     func rightNavigationBarButton() -> some View{
-        return  Image(feed.bookmark ? "bookmark_done" : "bookmark_notdone")
-//            .resizable()
-            .renderingMode(.template)
-            .colorMultiply(.primary)
-            .aspectRatio(contentMode: .fill)
-            .onTapGesture {
-                print("Bookmark button tapped")
-                
-                feed.bookmark = !feed.bookmark
-            }
+        return Button {
+            print("Bookmark button tapped")
+            feed.bookmark = !feed.bookmark
+        } label: {
+            Image(feed.bookmark ? "bookmark_done" : "bookmark_notdone")
+                .renderingMode(.template)
+                .colorMultiply(.primary)
+                .aspectRatio(contentMode: .fill)
+        }
     }
     
     //As we have implement based on theme so need to use custom CSS to load data in webview
