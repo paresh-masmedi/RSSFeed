@@ -16,6 +16,9 @@ struct RSSFeed: Codable, Identifiable, Hashable {
     var content: String?
     var creator: String
     
+    //UI will use this property
+    var bookmark: Bool = false
+    
     enum CodingKeys: String, CodingKey {
         case guid
         case title

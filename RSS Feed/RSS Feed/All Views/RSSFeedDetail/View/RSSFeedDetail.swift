@@ -20,6 +20,11 @@ struct RSSFeedDetail: View {
     let constNoContent: String = "No content found!"
 
     var body: some View {
+        Text("")
+            .navigationBarTitle("Feed detail", displayMode: .inline)
+            .navigationBarItems(trailing: rightNavigationBarButton())
+            .foregroundColor(.primary)
+        
         //Show vertical views
         VStack(alignment: .leading, spacing: 16) {
             //Tile
@@ -53,6 +58,19 @@ struct RSSFeedDetail: View {
         }
     }
     
+    func rightNavigationBarButton() -> some View{
+        return  Image(feed.bookmark ? "bookmark_done" : "bookmark_notdone")
+//            .resizable()
+            .renderingMode(.template)
+            .colorMultiply(.primary)
+            .aspectRatio(contentMode: .fill)
+            .onTapGesture {
+                print("Bookmark button tapped")
+                
+                feed.bookmark = !feed.bookmark
+            }
+    }
+    
     //As we have implement based on theme so need to use custom CSS to load data in webview
     func generateHTMLString(body: String?, changedColorScheme: ColorScheme? = nil) -> String {
         //Text
@@ -79,7 +97,7 @@ struct RSSFeedDetail: View {
                                                   
                                                   body {
                                                   font: -apple-system-body;
-                                                  font-size: 250%;
+                                                  font-size: 300%;
                                                   color: \(Theme.default.textPrimary.hex);
                                                   }
                                                   
