@@ -21,7 +21,7 @@ struct RSSFeedView: View {
     @State var arrStr = ["A", "B", "C"]
 
     var body: some View {
-        LoadingView(isShowing: $viewModel.isFetchingData) {
+//        LoadingView(isShowing: $viewModel.isFetchingData) {
             NavigationView {
                     List {
                         ForEach(viewModel.feeds, id: \.self) { feed in
@@ -41,7 +41,7 @@ struct RSSFeedView: View {
                         self.viewModel.getFeedData()
                     }
             }
-        }
+//        }
     }
 }
 
