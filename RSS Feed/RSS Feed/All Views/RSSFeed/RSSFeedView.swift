@@ -48,7 +48,7 @@ struct RSSFeedView: View {
                 if viewModel.isFetchingData {
                     VStack(alignment: .center) {
                         ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                        .progressViewStyle(CircularProgressViewStyle(tint: .primary))
                         .scaleEffect(2.0, anchor: .center)
                     }
                 }
