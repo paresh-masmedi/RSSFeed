@@ -9,6 +9,8 @@ import SwiftUI
 
 struct RSSFeedDetail: View {
     
+    @Environment(\.colorScheme) var colorScheme
+
     @State var feed: RSSFeed
 
     var body: some View {
@@ -26,6 +28,7 @@ struct RSSFeedDetail: View {
     }
     
     func generateHTMLString(body: String) -> String {
+        let curTheme = colorScheme == .dark ? "black" : "white"
         return """
                                                   <!doctype html>
                                                   <html lang="en">
@@ -39,7 +42,7 @@ struct RSSFeedDetail: View {
                                                   
                                                   body {
                                                   font: -apple-system-body;
-                                                  color: \(Theme.default.textSecondary.hex);
+                                                  color: \(Theme.default.textPrimary.hex);
                                                   }
                                                   
                                                   h1, h2, h3, h4, h5, h6 {
@@ -55,7 +58,7 @@ struct RSSFeedDetail: View {
                                                   }
                                                       </style>
                                                   </head>
-                                                  <body>
+                                                  <body bgcolor="\(curTheme)">
                                                       \(body)
                                                   </body>
                                                   </html>
