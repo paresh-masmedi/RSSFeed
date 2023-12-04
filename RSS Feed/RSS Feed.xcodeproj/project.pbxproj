@@ -24,6 +24,7 @@
 		66B010C72B19D749009EE2EB /* CustomXMLParserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B010C62B19D749009EE2EB /* CustomXMLParserDelegate.swift */; };
 		66B010D02B19F604009EE2EB /* RSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B010CF2B19F604009EE2EB /* RSSFeed.swift */; };
 		66B010D22B1A01B4009EE2EB /* RSSFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B010D12B1A01B4009EE2EB /* RSSFeedViewModel.swift */; };
+		66C63A112B1DA2E1001E0DF9 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C63A102B1DA2E1001E0DF9 /* WebView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		66B010C62B19D749009EE2EB /* CustomXMLParserDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomXMLParserDelegate.swift; sourceTree = "<group>"; };
 		66B010CF2B19F604009EE2EB /* RSSFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeed.swift; sourceTree = "<group>"; };
 		66B010D12B1A01B4009EE2EB /* RSSFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedViewModel.swift; sourceTree = "<group>"; };
+		66C63A102B1DA2E1001E0DF9 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 			children = (
 				66B010C22B19D521009EE2EB /* Extensions.swift */,
 				667FC5F82B1AF95B00F975C8 /* LoadView.swift */,
+				66C63A102B1DA2E1001E0DF9 /* WebView.swift */,
 				66307FA92B1B2FE800CE1B35 /* AttributedText.swift */,
 			);
 			path = Util;
@@ -365,6 +368,7 @@
 			files = (
 				66307FAA2B1B2FE800CE1B35 /* AttributedText.swift in Sources */,
 				667FC5F92B1AF95B00F975C8 /* LoadView.swift in Sources */,
+				66C63A112B1DA2E1001E0DF9 /* WebView.swift in Sources */,
 				66B010C72B19D749009EE2EB /* CustomXMLParserDelegate.swift in Sources */,
 				66B010C52B19D58A009EE2EB /* NetworkManager.swift in Sources */,
 				66B010C32B19D521009EE2EB /* Extensions.swift in Sources */,

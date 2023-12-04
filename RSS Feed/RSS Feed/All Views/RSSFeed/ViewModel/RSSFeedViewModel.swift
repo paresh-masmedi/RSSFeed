@@ -20,9 +20,9 @@ class RSSFeedViewModel: ObservableObject {
             .sink { completion in
                 switch completion {
                 case .failure(let err):
-                    print("Error is \(err.localizedDescription)")
+                    print("RSSFeed API error is \(err.localizedDescription)")
                 case .finished:
-                    print("Finished")
+                    print("RSSFeed API finished")
                 }
                 self.isFetchingData = false
             }
