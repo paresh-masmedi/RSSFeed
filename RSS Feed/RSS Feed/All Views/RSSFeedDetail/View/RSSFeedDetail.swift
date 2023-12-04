@@ -20,9 +20,21 @@ struct RSSFeedDetail: View {
                 .font(.system(size: 18))
             Text("By: \(feed.creator) on \(feed.pubDate)")
                 .font(.system(size: 13))
+                .foregroundStyle(.secondary)
             
-            WebView(htmlString: generateHTMLString(body: feed.content ?? ""))
-                .ignoresSafeArea(edges: .bottom)
+            if feed.content?.count ?? 0 > 0 {
+                WebView(htmlString: generateHTMLString(body: feed.content ?? ""))
+                    .ignoresSafeArea(edges: .bottom)
+            } else {
+                VStack(alignment: .center) {
+                    Spacer()
+                    Text("No feed content found!")
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    Spacer()
+                }
+               
+            }
+           
         }
         .padding([.leading, .trailing], 16)
     }

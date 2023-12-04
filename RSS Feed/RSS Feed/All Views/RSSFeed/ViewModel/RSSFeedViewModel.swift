@@ -15,7 +15,8 @@ class RSSFeedViewModel: ObservableObject {
     @Published var isFetchingData: Bool = false
     
     func getFeedData() {
-        isFetchingData = true
+        self.feeds = []
+        self.isFetchingData = true
         NetworkManager.shared.getXMLData(type: RSSFeed.self)
             .sink { completion in
                 switch completion {
