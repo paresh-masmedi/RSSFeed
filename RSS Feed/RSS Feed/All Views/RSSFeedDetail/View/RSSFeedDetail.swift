@@ -41,11 +41,10 @@ struct RSSFeedDetail: View {
                 .ignoresSafeArea(edges: .bottom)
                 .onChange(of: colorScheme) { newValue in
                     print("Theme changes: \(newValue)")
-                    
+                    //Changed
                     if colorScheme != newValue {
                         strHTML = generateHTMLString(body: feed.content, changedColorScheme: newValue)
                     }
-                    
                 }
         }
         .padding([.leading, .trailing], 16)
@@ -55,13 +54,22 @@ struct RSSFeedDetail: View {
             
             strHTML = generateHTMLString(body: feed.content)
             //print("strHTML: \(strHTML)")
+            
+            feed.bookmark = UserDefaultsManager.shared.containsBookmark(bookmark: feed.guid)
         }
     }
     
     func rightNavigationBarButton() -> some View{
         return Button {
             print("Bookmark button tapped")
+            if feed.bookmark == false {
+                UserDefaultsManager.shared.addBookmark(bookmark: feed.guid)
+            } else {
+                UserDefaultsManager.shared.removeBookmark(bookmark: feed.guid)
+            }
+            
             feed.bookmark = !feed.bookmark
+           
         } label: {
             Image(feed.bookmark ? "bookmark_done" : "bookmark_notdone")
                 .renderingMode(.template)
