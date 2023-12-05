@@ -19,7 +19,7 @@ struct SourceSelectionView: View {
         List {
             //Iterate
             ForEach(self.items, id: \.self) { item in
-                MultipleSelectionRow(title: item.rawValue, isSelected: self.selectedItems.contains(item)) {
+                MultipleSelectionRow(title: item.rawValue.replacingOccurrences(of: "-", with: " ").capitalized, isSelected: self.selectedItems.contains(item)) {
                     if self.selectedItems.contains(item) {
                         //Minimum one is selected
                         if self.selectedItems.count > 1 {
