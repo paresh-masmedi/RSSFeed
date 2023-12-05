@@ -29,7 +29,7 @@ class RSSFeedViewModel: ObservableObject {
         self.isFetchingData = true
         
         //Actual network call
-        NetworkManager.shared.getXMLData(type: RSSFeed.self)
+        NetworkManager.shared.getXMLData(endpoint: .backchannel, type: RSSFeed.self)
             .sink { completion in //Know completion
                 switch completion {
                 case .failure(let err):

@@ -8,6 +8,14 @@
 import Foundation
 import Combine
 
+
+enum Endpoint: String {
+    case backchannel = "backchannel"
+    case economist = "the-economist"
+    case matter = "matter"
+}
+
+
 class NetworkManager {
     
     static let shared = NetworkManager()
@@ -17,12 +25,12 @@ class NetworkManager {
     }
     
     private var cancellables = Set<AnyCancellable>()
-    private let baseURL = "https://medium.com/feed/backchannel"
+    private let baseURL = "https://medium.com/feed/"
     
     
-    func getJSONData<T: Decodable>(type: T.Type) -> Future<[T], Error> {
+    func getJSONData<T: Decodable>(endpoint: Endpoint, type: T.Type) -> Future<[T], Error> {
         return Future<[T], Error> { [weak self] promise in
-            guard let self = self, let url = URL(string: self.baseURL) else {
+            guard let self = self, let url = URL(string: self.baseURL.appending(endpoint.rawValue)) else {
                 return promise(.failure(NetworkError.invalidURL))
             }
             
@@ -52,9 +60,9 @@ class NetworkManager {
         }
     }
     
-    func getXMLData<T: Decodable>(type: T.Type) -> Future<[T], Error> {
+    func getXMLData<T: Decodable>(endpoint: Endpoint, type: T.Type) -> Future<[T], Error> {
         return Future<[T], Error> { [weak self] promise in
-            guard let self = self, let url = URL(string: self.baseURL) else {
+            guard let self = self, let url = URL(string: self.baseURL.appending(endpoint.rawValue)) else {
                 return promise(.failure(NetworkError.invalidURL))
             }
             print("URL is \(url.absoluteString)")
