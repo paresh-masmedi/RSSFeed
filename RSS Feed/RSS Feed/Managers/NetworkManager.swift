@@ -15,7 +15,6 @@ enum Endpoint: String, CaseIterable {
     case matter = "matter"
 }
 
-
 class NetworkManager {
     
     static let shared = NetworkManager()

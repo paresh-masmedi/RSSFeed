@@ -13,7 +13,7 @@ class RSSFeedViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     //RSS Feed data
-    @Published var feeds = [RSSFeed]()
+    @Published var feeds = [String : [RSSFeed]]()
     
     //API Status
     @Published var isFetchingData: Bool = false
@@ -27,7 +27,7 @@ class RSSFeedViewModel: ObservableObject {
     //API call to get RSS Feeds
     func getFeedData() {
         //Clear earlier data
-        self.feeds = []
+        self.feeds = [:]
         
         //Status as api is fetching data or not
         self.isFetchingData = true
@@ -54,7 +54,8 @@ class RSSFeedViewModel: ObservableObject {
             }
             receiveValue: { [weak self] feeds in //Data receive
                 //Set data
-                self?.feeds.append(contentsOf: feeds)
+                let groupName = endPoint.rawValue.replacingOccurrences(of: "-", with: " ")
+                self?.feeds[groupName] = feeds
             }
             .store(in: &cancellables)
     }

@@ -23,16 +23,16 @@ struct RSSFeedDetailView: View {
             .foregroundColor(.primary)
         
         //Show vertical views
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 4) {
             //Tile
             Text(viewModel.feed.title)
-                .font(.system(size: 18, weight: .bold))
+                .font(.system(size: 20, weight: .bold))
             
             //Author and date together
             Text("By: \(viewModel.feed.creator) on \(viewModel.feed.pubDate)")
                 .font(.system(size: 13))
                 .foregroundStyle(.secondary)
-            
+           
             //Check has feed data
             WebView(htmlString: $strHTML)
                 .ignoresSafeArea(edges: .bottom)
@@ -43,6 +43,7 @@ struct RSSFeedDetailView: View {
                         strHTML = generateHTMLString(changedColorScheme: newValue)
                     }
                 }
+                .padding(.top, 4)
         }
         .padding([.leading, .trailing], 16)
         .onAppear {

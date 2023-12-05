@@ -29,15 +29,25 @@ struct RSSFeedView: View {
             ZStack {
                 //Table list
                 List {
-                    ForEach(viewModel.feeds, id: \.self) { feed in
-                        NavigationLink {
-                            RSSFeedDetailView(viewModel: RSSFeedDetailViewModel(feed: feed))
-                            
-                        } label: {
-                            Text(feed.title)
+                    ForEach(viewModel.feeds.sorted(by: { $0.0 < $1.0 }), id: \.key) { feedKey, feeds in
+                        Section(header: Text(feedKey)) {
+                            ForEach(feeds, id: \.id) { feed in
+                                NavigationLink {
+                                    RSSFeedDetailView(viewModel: RSSFeedDetailViewModel(feed: feed))
+                                    
+                                } label: {
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(feed.title)
+                                        Text("By: \(feed.creator) on \(feed.pubDate)")
+                                            .font(.system(size: 12))
+                                            .foregroundStyle(.secondary)
+                                    }
+                                }
+                            }
                         }
                     }
                 }
+                .listStyle(.insetGrouped)
                 .onChange(of: viewModel.selectedSource) { newValue in
                     print("selectedSource changes: \(newValue)")
                     sourceSelectionChanged = true
