@@ -33,24 +33,30 @@ class RSSFeedViewModel: ObservableObject {
         self.isFetchingData = true
         
         if selectedSource.count > 0 {
-            //Actual network call
-            NetworkManager.shared.getXMLData(endpoint: selectedSource[0], type: RSSFeed.self)
-                .sink { completion in //Know completion
-                    switch completion {
-                    case .failure(let err):
-                        print("RSSFeed API error is \(err.localizedDescription)")
-                    case .finished:
-                        print("RSSFeed API finished")
-                    }
-                    self.isFetchingData = false
-                }
-                receiveValue: { [weak self] feeds in //Data receive
-                    //Set data
-                    self?.feeds = feeds
-                }
-                .store(in: &cancellables)
+            for endPoint in selectedSource {
+                networkAPICall(endPoint: endPoint)
+            }
         }
-        
+    }
+    
+    private func networkAPICall(endPoint: Endpoint) {
+        print("networkAPICall: \(endPoint.rawValue)")
+        //Actual network call
+        NetworkManager.shared.getXMLData(endpoint: endPoint, type: RSSFeed.self)
+            .sink { completion in //Know completion
+                switch completion {
+                case .failure(let err):
+                    print("RSSFeed API error is \(err.localizedDescription)")
+                case .finished:
+                    print("RSSFeed API finished")
+                }
+                self.isFetchingData = false
+            }
+            receiveValue: { [weak self] feeds in //Data receive
+                //Set data
+                self?.feeds.append(contentsOf: feeds)
+            }
+            .store(in: &cancellables)
     }
 }
 

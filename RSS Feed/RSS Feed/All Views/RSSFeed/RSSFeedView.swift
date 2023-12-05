@@ -20,6 +20,8 @@ struct RSSFeedView: View {
     
     // Use this to only fire your block one time
     @State private var hasFeedData = false
+    
+    @State private var sourceSelectionChanged: Bool = false
         
     var body: some View {
         NavigationView {
@@ -38,6 +40,7 @@ struct RSSFeedView: View {
                 }
                 .onChange(of: viewModel.selectedSource) { newValue in
                     print("selectedSource changes: \(newValue)")
+                    sourceSelectionChanged = true
                     
                 }
                 //Navigation title
@@ -49,9 +52,13 @@ struct RSSFeedView: View {
                     print("selectedSource : \(viewModel.selectedSource)")
                     
                     //API Call
-                    guard !hasFeedData else { return }
-                    hasFeedData = true
-                    self.viewModel.getFeedData()
+                    if hasFeedData == false {
+                        hasFeedData = true
+                        self.viewModel.getFeedData()
+                    } else if sourceSelectionChanged == true {
+                        sourceSelectionChanged = false
+                        self.viewModel.getFeedData()
+                    }
                 }
                 
                 //Activity indicator
@@ -67,7 +74,6 @@ struct RSSFeedView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
                         SourceSelectionView(selectedItems: $viewModel.selectedSource)
-                        
                     } label: {
                         Text("Source")
                     }
