@@ -14,8 +14,12 @@ class RSSFeedViewModel: ObservableObject {
     
     //RSS Feed data
     @Published var feeds = [RSSFeed]()
+    
     //API Status
     @Published var isFetchingData: Bool = false
+    
+    //Source list
+    @Published var selectedSource: Array<Endpoint> = [.backchannel]
     
     //Static message
     let constNoContent: String = "No content found!"
@@ -28,22 +32,25 @@ class RSSFeedViewModel: ObservableObject {
         //Status as api is fetching data or not
         self.isFetchingData = true
         
-        //Actual network call
-        NetworkManager.shared.getXMLData(endpoint: .backchannel, type: RSSFeed.self)
-            .sink { completion in //Know completion
-                switch completion {
-                case .failure(let err):
-                    print("RSSFeed API error is \(err.localizedDescription)")
-                case .finished:
-                    print("RSSFeed API finished")
+        if selectedSource.count > 0 {
+            //Actual network call
+            NetworkManager.shared.getXMLData(endpoint: selectedSource[0], type: RSSFeed.self)
+                .sink { completion in //Know completion
+                    switch completion {
+                    case .failure(let err):
+                        print("RSSFeed API error is \(err.localizedDescription)")
+                    case .finished:
+                        print("RSSFeed API finished")
+                    }
+                    self.isFetchingData = false
                 }
-                self.isFetchingData = false
-            }
-            receiveValue: { [weak self] feeds in //Data receive
-                //Set data
-                self?.feeds = feeds
-            }
-            .store(in: &cancellables)
+                receiveValue: { [weak self] feeds in //Data receive
+                    //Set data
+                    self?.feeds = feeds
+                }
+                .store(in: &cancellables)
+        }
+        
     }
 }
 

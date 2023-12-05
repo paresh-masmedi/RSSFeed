@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 
-enum Endpoint: String {
+enum Endpoint: String, CaseIterable {
     case backchannel = "backchannel"
     case economist = "the-economist"
     case matter = "matter"

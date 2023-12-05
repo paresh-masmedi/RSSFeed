@@ -36,12 +36,17 @@ struct RSSFeedView: View {
                         }
                     }
                 }
+                .onChange(of: viewModel.selectedSource) { newValue in
+                    print("selectedSource changes: \(newValue)")
+                    
+                }
                 //Navigation title
                 .navigationTitle("Medium RSS")
                 //Here we can call business logic once view appears
                 .onAppear {
                     //Log
                     print("RSSFeedView: onAppear")
+                    print("selectedSource : \(viewModel.selectedSource)")
                     
                     //API Call
                     guard !hasFeedData else { return }
@@ -55,6 +60,16 @@ struct RSSFeedView: View {
                         ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: .primary))
                         .scaleEffect(2.0, anchor: .center)
+                    }
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        SourceSelectionView(selectedItems: $viewModel.selectedSource)
+                        
+                    } label: {
+                        Text("Source")
                     }
                 }
             }
