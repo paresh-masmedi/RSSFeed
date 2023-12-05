@@ -26,7 +26,7 @@ struct RSSFeedView: View {
                 List {
                     ForEach(viewModel.feeds, id: \.self) { feed in
                         NavigationLink {
-                            RSSFeedDetail(feed: feed)
+                            RSSFeedDetailView(feed: feed)
                             
                         } label: {
                             Text(feed.title)

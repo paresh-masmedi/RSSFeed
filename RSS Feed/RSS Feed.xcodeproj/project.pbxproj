@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		66307FA82B1B27B300CE1B35 /* RSSFeedDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66307FA72B1B27B300CE1B35 /* RSSFeedDetail.swift */; };
+		66307FA82B1B27B300CE1B35 /* RSSFeedDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66307FA72B1B27B300CE1B35 /* RSSFeedDetailView.swift */; };
 		66B010912B19D250009EE2EB /* RSS_FeedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B010902B19D250009EE2EB /* RSS_FeedApp.swift */; };
 		66B010932B19D250009EE2EB /* RSSFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B010922B19D250009EE2EB /* RSSFeedView.swift */; };
 		66B010952B19D251009EE2EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66B010942B19D251009EE2EB /* Assets.xcassets */; };
@@ -44,7 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		66307FA72B1B27B300CE1B35 /* RSSFeedDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedDetail.swift; sourceTree = "<group>"; };
+		66307FA72B1B27B300CE1B35 /* RSSFeedDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedDetailView.swift; sourceTree = "<group>"; };
 		66B0108D2B19D250009EE2EB /* RSS Feed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RSS Feed.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		66B010902B19D250009EE2EB /* RSS_FeedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSS_FeedApp.swift; sourceTree = "<group>"; };
 		66B010922B19D250009EE2EB /* RSSFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedView.swift; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 		66307FA62B1B278C00CE1B35 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				66307FA72B1B27B300CE1B35 /* RSSFeedDetail.swift */,
+				66307FA72B1B27B300CE1B35 /* RSSFeedDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -371,7 +371,7 @@
 				66B0109D2B19D251009EE2EB /* RSS_Feed.xcdatamodeld in Sources */,
 				66B010D02B19F604009EE2EB /* RSSFeed.swift in Sources */,
 				66B010D22B1A01B4009EE2EB /* RSSFeedViewModel.swift in Sources */,
-				66307FA82B1B27B300CE1B35 /* RSSFeedDetail.swift in Sources */,
+				66307FA82B1B27B300CE1B35 /* RSSFeedDetailView.swift in Sources */,
 				66B0109A2B19D251009EE2EB /* Persistence.swift in Sources */,
 				66B010932B19D250009EE2EB /* RSSFeedView.swift in Sources */,
 				66B010912B19D250009EE2EB /* RSS_FeedApp.swift in Sources */,

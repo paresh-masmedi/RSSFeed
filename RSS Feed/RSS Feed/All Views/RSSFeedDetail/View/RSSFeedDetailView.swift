@@ -1,5 +1,5 @@
 //
-//  RSSFeedDetail.swift
+//  RSSFeedDetailView.swift
 //  RSS Feed
 //
 //  Created by Paresh Navadiya on 02/12/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RSSFeedDetail: View {
+struct RSSFeedDetailView: View {
     //Know current device color
     @Environment(\.colorScheme) var colorScheme
 
@@ -41,7 +41,7 @@ struct RSSFeedDetail: View {
                 .ignoresSafeArea(edges: .bottom)
                 .onChange(of: colorScheme) { newValue in
                     print("Theme changes: \(newValue)")
-                    //Changed
+                    //Changed color scheme
                     if colorScheme != newValue {
                         strHTML = generateHTMLString(body: feed.content, changedColorScheme: newValue)
                     }
@@ -55,6 +55,7 @@ struct RSSFeedDetail: View {
             strHTML = generateHTMLString(body: feed.content)
             //print("strHTML: \(strHTML)")
             
+            //Set bookmark value
             feed.bookmark = UserDefaultsManager.shared.containsBookmark(bookmark: feed.guid)
         }
     }
@@ -130,8 +131,8 @@ struct RSSFeedDetail: View {
 }
 
 //Preview
-struct RSSFeedDetail_Previews: PreviewProvider {
+struct RSSFeedDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        RSSFeedDetail(feed: RSSFeed(guid: "1234567890", title: "Breakings news: Storm is coming", link: "http://www.google.com", pubDate: "Sat, 02 Dec 2023 02:58:46 GMT", creator: "Paresh Navadiya")).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        RSSFeedDetailView(feed: RSSFeed(guid: "1234567890", title: "Breakings news: Storm is coming", link: "http://www.google.com", pubDate: "Sat, 02 Dec 2023 02:58:46 GMT", creator: "Paresh Navadiya")).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

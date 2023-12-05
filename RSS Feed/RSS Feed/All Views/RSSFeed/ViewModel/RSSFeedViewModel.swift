@@ -17,6 +17,9 @@ class RSSFeedViewModel: ObservableObject {
     //API Status
     @Published var isFetchingData: Bool = false
     
+    //Static message
+    let constNoContent: String = "No content found!"
+    
     //API call to get RSS Feeds
     func getFeedData() {
         //Clear earlier data
