@@ -9,6 +9,7 @@ import UIKit
 import SwiftUI
 
 extension UIColor {
+    //UIColor to hex value
     var hex: String {
         var red: CGFloat = 0
         var green: CGFloat = 0
@@ -27,17 +28,19 @@ extension UIColor {
     }
 }
 
-struct Theme {
-    let textPrimary: UIColor
-    let textSecondary: UIColor
-    let textInteractive: UIColor
-}
-
 extension Theme {
+    //Based on default theme its colors
     static let `default` = Theme(
         textPrimary: .label,
         textSecondary: .secondaryLabel,
-        textInteractive: .systemGreen
+        textInteractive: .systemBlue
     )
+}
+
+extension URL {
+    //Know URL is directory or not
+    var isDirectory: Bool {
+       (try? resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory == true
+    }
 }
 
