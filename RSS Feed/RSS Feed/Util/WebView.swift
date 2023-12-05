@@ -33,7 +33,7 @@ class Coordinator: NSObject, WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        if let url = navigationAction.request.url, url.isDirectory == false {
+        if let url = navigationAction.request.url, url.isDirectory == false, navigationAction.navigationType == WKNavigationType.linkActivated {
             decisionHandler(.cancel)
             if  UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url)
