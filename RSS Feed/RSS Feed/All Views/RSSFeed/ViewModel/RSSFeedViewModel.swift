@@ -15,10 +15,10 @@ class RSSFeedViewModel: ObservableObject {
     //RSS Feed data
     @Published var feeds = [String : [RSSFeed]]()
     
-    //API Status
+    //API currently fetching or not
     @Published var isFetchingData: Bool = false
     
-    //Source list
+    //Selected Source list
     @Published var selectedSource: Array<Endpoint> = [.backchannel]
     
     //Static message
@@ -32,16 +32,18 @@ class RSSFeedViewModel: ObservableObject {
         //Status as api is fetching data or not
         self.isFetchingData = true
         
+        //Make multiple API calls
         if selectedSource.count > 0 {
+            //Iterate
             for endPoint in selectedSource {
                 networkAPICall(endPoint: endPoint)
             }
         }
     }
     
+    //Actual network call
     private func networkAPICall(endPoint: Endpoint) {
         print("networkAPICall: \(endPoint.rawValue)")
-        //Actual network call
         NetworkManager.shared.getXMLData(endpoint: endPoint, type: RSSFeed.self)
             .sink { completion in //Know completion
                 switch completion {

@@ -62,11 +62,16 @@ struct RSSFeedView: View {
                     print("selectedSource : \(viewModel.selectedSource)")
                     
                     //API Call
+                    //One time only
                     if hasFeedData == false {
+                        //Update data
                         hasFeedData = true
+                        //Call
                         self.viewModel.getFeedData()
-                    } else if sourceSelectionChanged == true {
+                    } else if sourceSelectionChanged == true { //User has changes feeds source
+                        //Update data
                         sourceSelectionChanged = false
+                        //Call
                         self.viewModel.getFeedData()
                     }
                 }

@@ -17,6 +17,7 @@ struct RSSFeedDetailView: View {
     @State var strHTML: String = ""
 
     var body: some View {
+        //Inline Navigation title
         Text("")
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarItems(trailing: rightNavigationBarButton())
