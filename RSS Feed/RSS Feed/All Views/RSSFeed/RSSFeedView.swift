@@ -17,6 +17,9 @@ struct RSSFeedView: View {
 //    private var items: FetchedResults<Item>
     
     @ObservedObject var viewModel: RSSFeedViewModel
+    
+    // Use this to only fire your block one time
+    @State private var hasFeedData = false
         
     var body: some View {
         NavigationView {
@@ -41,6 +44,8 @@ struct RSSFeedView: View {
                     print("RSSFeedView: onAppear")
                     
                     //API Call
+                    guard !hasFeedData else { return }
+                    hasFeedData = true
                     self.viewModel.getFeedData()
                 }
                 
