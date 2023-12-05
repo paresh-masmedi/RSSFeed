@@ -170,6 +170,7 @@
 		66B010BF2B19D4A1009EE2EB /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				66B010C62B19D749009EE2EB /* CustomXMLParserDelegate.swift */,
 				66B010C22B19D521009EE2EB /* Extensions.swift */,
 				66C63A102B1DA2E1001E0DF9 /* WebView.swift */,
 			);
@@ -189,7 +190,6 @@
 			isa = PBXGroup;
 			children = (
 				66B010C42B19D58A009EE2EB /* NetworkManager.swift */,
-				66B010C62B19D749009EE2EB /* CustomXMLParserDelegate.swift */,
 				66C63A122B1E08A3001E0DF9 /* UserDefaultsManager.swift */,
 			);
 			path = Managers;
