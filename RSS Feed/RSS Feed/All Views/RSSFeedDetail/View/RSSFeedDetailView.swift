@@ -18,7 +18,7 @@ struct RSSFeedDetailView: View {
 
     var body: some View {
         Text("")
-            .navigationBarTitle("Feed detail", displayMode: .inline)
+            .navigationBarTitle("", displayMode: .inline)
             .navigationBarItems(trailing: rightNavigationBarButton())
             .foregroundColor(.primary)
         
@@ -26,7 +26,7 @@ struct RSSFeedDetailView: View {
         VStack(alignment: .leading, spacing: 16) {
             //Tile
             Text(viewModel.feed.title)
-                .font(.system(size: 18))
+                .font(.system(size: 18, weight: .bold))
             
             //Author and date together
             Text("By: \(viewModel.feed.creator) on \(viewModel.feed.pubDate)")
