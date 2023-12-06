@@ -17,7 +17,6 @@ struct WebView: UIViewRepresentable {
             let baseURL = URL(fileURLWithPath: Bundle.main.bundlePath)
             uiView.loadHTMLString(htmlString, baseURL: baseURL)
         }
-       
     }
 
     func makeCoordinator() -> Coordinator {

@@ -24,7 +24,7 @@ class RSSFeedViewModel: ObservableObject {
     //Static message
     let constNoContent: String = "No content found!"
     
-    //API call to get RSS Feeds
+    //Get RSS Feeds from the source
     func getFeedData() {
         //Clear earlier data
         self.feeds = [:]
@@ -34,14 +34,11 @@ class RSSFeedViewModel: ObservableObject {
         
         //Make multiple API calls
         if selectedSource.count > 0 {
-            //Iterate
-            for endPoint in selectedSource {
-                networkAPICall(endPoint: endPoint)
-            }
+            multipleNetworkCalls()
         }
     }
     
-    //Actual network call
+    //Single network call
     private func networkAPICall(endPoint: Endpoint) {
         print("networkAPICall: \(endPoint.rawValue)")
         NetworkManager.shared.getXMLData(endpoint: endPoint, type: RSSFeed.self)
@@ -60,6 +57,39 @@ class RSSFeedViewModel: ObservableObject {
                 self?.feeds[groupName] = feeds
             }
             .store(in: &cancellables)
+    }
+    
+    //Multiple network call serially (one at a time)
+    private func multipleNetworkCalls() {
+        let group = DispatchGroup()
+        selectedSource.forEach { endPoint in
+            print("networkAPICall: \(endPoint.rawValue)")
+            //Every will enter in above group
+            group.enter()
+            NetworkManager.shared.getXMLData(endpoint: endPoint, type: RSSFeed.self)
+                .sink { completion in //Know completion
+                    switch completion {
+                    case .failure(let err):
+                        print("RSSFeed API: \(endPoint) -> error is \(err.localizedDescription)")
+                    case .finished:
+                        print("RSSFeed API: \(endPoint) -> finished")
+                    }
+                    
+                    //Stop activity indicator
+                    self.isFetchingData = false
+                    
+                    //Leave group as job is done
+                    group.leave()
+                }
+                receiveValue: { [weak self] feeds in //Data receive
+                    //Get feed key source
+                    let groupName = endPoint.rawValue.replacingOccurrences(of: "-", with: " ")
+                    
+                    //Set data
+                    self?.feeds[groupName] = feeds
+                }
+                .store(in: &cancellables)
+        }
     }
 }
 
