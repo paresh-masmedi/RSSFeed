@@ -15,15 +15,15 @@ class UserDefaultsManager {
     private let key = "feeds_bookmarked"
     
     //Data
-    private var arrBookmarks = Array<String>()
+    private var arrBookmarks = Array<RSSFeed>()
     
     //Intial constructor
     init() {
-        arrBookmarks = loadSet()
+        arrBookmarks = loadFeeds()
     }
 
     // Save set to UserDefaults
-    private func saveSet() {
+    private func saveFeeds() {
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(arrBookmarks) {
             UserDefaults.standard.set(encoded, forKey: key)
@@ -31,33 +31,44 @@ class UserDefaultsManager {
     }
 
     // Retrieve set from UserDefaults
-    private func loadSet() -> Array<String> {
+    private func loadFeeds() -> [RSSFeed] {
         if let data = UserDefaults.standard.data(forKey: key) {
             let decoder = JSONDecoder()
-            if let decoded = try? decoder.decode(Array<String>.self, from: data) {
+            if let decoded = try? decoder.decode([RSSFeed].self, from: data) {
                 return decoded
             }
         }
         return []
     }
     
+    func getBookmarkFeeds() -> [RSSFeed] {
+        return arrBookmarks
+    }
+    
     // Add a bookmark to UserDefaults
-    func addBookmark(bookmark: String) {
-        arrBookmarks.append(bookmark)
-        saveSet()
+    func addBookmark(feed: RSSFeed) {
+        arrBookmarks.append(feed)
+        saveFeeds()
     }
     
     // Remove a bookmark to UserDefaults
-    func removeBookmark(bookmark: String) {
-        if let index: Int = arrBookmarks.firstIndex(of: bookmark) {
+    func removeBookmark(feedGUID: String) {
+        if let index: Int = arrBookmarks.firstIndex(where: { feed in
+            return feed.guid == feedGUID
+        }), index > -1 {
             arrBookmarks.remove(at: index)
         }
-        saveSet()
+        saveFeeds()
     }
     
     // Check a bookmark exist in UserDefaults
-    func containsBookmark(bookmark: String) -> Bool {
-        let isContains = arrBookmarks.contains(bookmark)
+    func containsBookmark(feedGUID: String) -> Bool {
+        var isContains = false
+        if let index: Int = arrBookmarks.firstIndex(where: { feed in
+            return feed.guid == feedGUID
+        }), index > -1 {
+            isContains = true
+        }
         return isContains
     }
 }

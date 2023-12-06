@@ -45,7 +45,7 @@ struct MultipleSelectionRow: View {
         Button(action: self.action) {
             HStack {
                 Text(self.title)
-                    .foregroundColor(isSelected ? .blue : .black)
+                    .foregroundColor(isSelected ? .blue : .primary)
                 if self.isSelected {
                     Spacer()
                     Image(systemName: "checkmark")

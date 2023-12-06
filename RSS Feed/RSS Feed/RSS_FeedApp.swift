@@ -22,7 +22,7 @@ struct RSS_FeedApp: App {
                         }
                         .tag(0)
                     
-                    RSSFeedView(viewModel: RSSFeedViewModel())
+                    BookmarkListView(feeds: [])
                         .tabItem {
                             Label("Bookmark", systemImage: "bookmark")
                         }
