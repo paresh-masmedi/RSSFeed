@@ -11,7 +11,11 @@ struct RSSFeedDetailView: View {
     //Know current device color
     @Environment(\.colorScheme) var colorScheme
     
+    //View Model object
     @ObservedObject var viewModel: RSSFeedDetailViewModel
+    
+    //Alert view to show or not
+    @State private var showAlert = false
 
     //Know html text changes
     @State var strHTML: String = ""
@@ -54,13 +58,25 @@ struct RSSFeedDetailView: View {
             strHTML = generateHTMLString()
             //Logger.shared.log(message: "strHTML: \(strHTML)")
         }
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Bookmark"),
+                message: Text(viewModel.feed.bookmark ? "This feed is bookmarked sucessfully." : "This feed is removed from bookmark sucessfully."),
+                dismissButton: .default(Text("OK"))
+            )
+        }
     }
     
+    //Source button in navigation bar
     func rightNavigationBarButton() -> some View{
         return Button {
             Logger.shared.log(message: "Bookmark button tapped")
             
+            //Inform changes
             viewModel.bookmarkChanges()
+            
+            //Show alert
+            showAlert = true
            
         } label: {
             Image(viewModel.feed.bookmark ? "bookmark_done" : "bookmark_notdone")
