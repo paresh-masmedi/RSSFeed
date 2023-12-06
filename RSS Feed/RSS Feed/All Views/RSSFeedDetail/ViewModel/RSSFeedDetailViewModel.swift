@@ -21,6 +21,7 @@ class RSSFeedDetailViewModel: ObservableObject {
         self.feed.bookmark = UserDefaultsManager.shared.containsBookmark(feedGUID: self.feed.guid)
     }
     
+    //User bookmark a feed or not
     func bookmarkChanges() {
         if self.feed.bookmark == false {
             UserDefaultsManager.shared.addBookmark(feed: feed)

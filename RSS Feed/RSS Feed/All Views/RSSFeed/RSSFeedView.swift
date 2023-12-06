@@ -27,7 +27,7 @@ struct RSSFeedView: View {
         NavigationView {
             //As we need activity indicator and list with same aspect ratio
             ZStack {
-                //Table list
+                //RSS Feed list
                 List {
                     ForEach(viewModel.feeds.sorted(by: { $0.0 < $1.0 }), id: \.key) { feedKey, feeds in
                         Section(header: Text(feedKey)) {
@@ -76,7 +76,7 @@ struct RSSFeedView: View {
                     }
                 }
                 
-                //Activity indicator
+                //Activity indicator shown when fetching data
                 if viewModel.isFetchingData {
                     VStack(alignment: .center) {
                         ProgressView()

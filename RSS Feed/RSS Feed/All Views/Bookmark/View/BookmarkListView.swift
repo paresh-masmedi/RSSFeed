@@ -10,15 +10,14 @@ import CoreData
 
 struct BookmarkListView: View {
     
-    // Use this to only fire your block one time
+    // Bookmark feeds only
     @State var feeds: [RSSFeed]
-    
         
     var body: some View {
         NavigationView {
             //As we need activity indicator and list with same aspect ratio
             ZStack {
-                //Table list
+                //Bookmark List 
                 List {
                     ForEach(feeds, id: \.id) { feed in
                         NavigationLink {

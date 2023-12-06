@@ -21,9 +21,6 @@ class RSSFeedViewModel: ObservableObject {
     //Selected Source list
     @Published var selectedSource: Array<Endpoint> = [.backchannel]
     
-    //Static message
-    let constNoContent: String = "No content found!"
-    
     //Get RSS Feeds from the source
     func getFeedData() {
         //Clear earlier data

@@ -31,8 +31,6 @@ struct RSS_FeedApp: App {
                 }.onAppear() {
                 }
             }
-//            RSSFeedView(viewModel: RSSFeedViewModel())
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
