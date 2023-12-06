@@ -38,7 +38,7 @@ struct RSSFeedDetailView: View {
             WebView(htmlString: $strHTML)
                 .ignoresSafeArea(edges: .bottom)
                 .onChange(of: colorScheme) { newValue in
-                    print("Theme changes: \(newValue)")
+                    Logger.shared.log(message: "Theme changes: \(newValue)")
                     //Changed color scheme
                     if colorScheme != newValue {
                         strHTML = generateHTMLString(changedColorScheme: newValue)
@@ -49,16 +49,16 @@ struct RSSFeedDetailView: View {
         .padding([.leading, .trailing], 16)
         .onAppear {
             //Log
-            print("RSSFeedDetail: onAppear")
+            Logger.shared.log(message: "RSSFeedDetail: onAppear")
             
             strHTML = generateHTMLString()
-            //print("strHTML: \(strHTML)")
+            //Logger.shared.log(message: "strHTML: \(strHTML)")
         }
     }
     
     func rightNavigationBarButton() -> some View{
         return Button {
-            print("Bookmark button tapped")
+            Logger.shared.log(message: "Bookmark button tapped")
             
             viewModel.bookmarkChanges()
            
@@ -79,7 +79,7 @@ struct RSSFeedDetailView: View {
         } else {
             curThemeColor = colorScheme == .dark ? "black" : "white"
         }
-        print("curThemeColor: \(curThemeColor)")
+        Logger.shared.log(message: "curThemeColor: \(curThemeColor)")
         return self.viewModel.generateHTMLTextBasedOnTheme(curThemeColor)
     }
 }

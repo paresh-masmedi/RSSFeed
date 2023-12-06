@@ -33,7 +33,7 @@ class NetworkManager {
                 return promise(.failure(NetworkError.invalidURL))
             }
             
-            print("URL is \(url.absoluteString)")
+            Logger.shared.log(message: "URL is \(url.absoluteString)")
             URLSession.shared.dataTaskPublisher(for: url)
                 .tryMap { (data, response) -> Data in
                     guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
@@ -64,11 +64,11 @@ class NetworkManager {
             guard let self = self, let url = URL(string: self.baseURL.appending(endpoint.rawValue)) else {
                 return promise(.failure(NetworkError.invalidURL))
             }
-            print("URL is \(url.absoluteString)")
+            Logger.shared.log(message: "URL is \(url.absoluteString)")
             
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 guard let data = data, error == nil else {
-                    print("Error: \(error?.localizedDescription ?? "Unknown error")")
+                    Logger.shared.log(message: "Error: \(error?.localizedDescription ?? "Unknown error")")
                     return
                 }
 
@@ -82,7 +82,7 @@ class NetworkManager {
 
                     // Access parsed data
                     let arrItems = delegate.items
-//                    print(arrItems)
+//                    Logger.shared.log(message: arrItems)
                     
                     let jsonData = try JSONSerialization.data(withJSONObject: arrItems)
                     let models = try! JSONDecoder().decode([T].self, from: jsonData)
@@ -106,10 +106,10 @@ class NetworkManager {
 //                    }
 //
 ////                    let str = String(decoding: data, as: UTF8.self)
-////                    print("Response: \(str)")
+////                    Logger.shared.log(message: "Response: \(str)")
 //
 //                    let feeds = try XMLDecoder().decode(RSS.self, from: data)
-//                    print("feeds: \(feeds)")
+//                    Logger.shared.log(message: "feeds: \(feeds)")
 //
 //                    return data
 //                }

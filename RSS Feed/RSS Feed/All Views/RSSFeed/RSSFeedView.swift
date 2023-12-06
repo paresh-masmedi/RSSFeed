@@ -49,7 +49,7 @@ struct RSSFeedView: View {
                 }
                 .listStyle(.insetGrouped)
                 .onChange(of: viewModel.selectedSource) { newValue in
-                    print("selectedSource changes: \(newValue)")
+                    Logger.shared.log(message: "selectedSource changes: \(newValue)")
                     sourceSelectionChanged = true
                     
                 }
@@ -58,8 +58,8 @@ struct RSSFeedView: View {
                 //Here we can call business logic once view appears
                 .onAppear {
                     //Log
-                    print("RSSFeedView: onAppear")
-                    print("selectedSource : \(viewModel.selectedSource)")
+                    Logger.shared.log(message: "RSSFeedView: onAppear")
+                    Logger.shared.log(message: "selectedSource : \(viewModel.selectedSource)")
                     
                     //API Call
                     //One time only

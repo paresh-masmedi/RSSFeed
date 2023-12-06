@@ -49,7 +49,7 @@ class CustomXMLParserDelegate: NSObject, XMLParserDelegate {
 //
 //    // Access parsed data
 //    let parsedItems = delegate.items
-//    print(parsedItems)
+//    Logger.shared.log(message: parsedItems)
 //} else {
-//    print("Error loading XML file.")
+//    Logger.shared.log(message: "Error loading XML file.")
 //}

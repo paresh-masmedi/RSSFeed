@@ -40,14 +40,14 @@ class RSSFeedViewModel: ObservableObject {
     
     //Single network call
     private func networkAPICall(endPoint: Endpoint) {
-        print("networkAPICall: \(endPoint.rawValue)")
+        Logger.shared.log(message: "networkAPICall: \(endPoint.rawValue)")
         NetworkManager.shared.getXMLData(endpoint: endPoint, type: RSSFeed.self)
             .sink { completion in //Know completion
                 switch completion {
                 case .failure(let err):
-                    print("RSSFeed API error is \(err.localizedDescription)")
+                    Logger.shared.log(message: "RSSFeed API error is \(err.localizedDescription)")
                 case .finished:
-                    print("RSSFeed API finished")
+                    Logger.shared.log(message: "RSSFeed API finished")
                 }
                 self.isFetchingData = false
             }
@@ -63,16 +63,16 @@ class RSSFeedViewModel: ObservableObject {
     private func multipleNetworkCalls() {
         let group = DispatchGroup()
         selectedSource.forEach { endPoint in
-            print("networkAPICall: \(endPoint.rawValue)")
+            Logger.shared.log(message: "networkAPICall: \(endPoint.rawValue)")
             //Every will enter in above group
             group.enter()
             NetworkManager.shared.getXMLData(endpoint: endPoint, type: RSSFeed.self)
                 .sink { completion in //Know completion
                     switch completion {
                     case .failure(let err):
-                        print("RSSFeed API: \(endPoint) -> error is \(err.localizedDescription)")
+                        Logger.shared.log(message: "RSSFeed API: \(endPoint) -> error is \(err.localizedDescription)")
                     case .finished:
-                        print("RSSFeed API: \(endPoint) -> finished")
+                        Logger.shared.log(message: "RSSFeed API: \(endPoint) -> finished")
                     }
                     
                     //Stop activity indicator
