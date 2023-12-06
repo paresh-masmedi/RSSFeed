@@ -13,8 +13,26 @@ struct RSS_FeedApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RSSFeedView(viewModel: RSSFeedViewModel())
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            NavigationView {
+                TabView() {
+                    RSSFeedView(viewModel: RSSFeedViewModel())
+                        .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                        .tabItem {
+                            Label("RSS Feeds", systemImage: "list.bullet.indent")
+                        }
+                        .tag(0)
+                    
+                    RSSFeedView(viewModel: RSSFeedViewModel())
+                        .tabItem {
+                            Label("Bookmark", systemImage: "bookmark")
+                        }
+                        .tag(1)
+                    
+                }.onAppear() {
+                }
+            }
+//            RSSFeedView(viewModel: RSSFeedViewModel())
+//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

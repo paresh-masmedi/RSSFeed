@@ -16,7 +16,7 @@ struct Logger {
 //    fileprivate let canLog = false
 //#endif
     
-    fileprivate let canLog = false
+    fileprivate let canLog = true
     
     func log(message: Any) {
         if (canLog) {
