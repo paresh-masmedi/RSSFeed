@@ -85,7 +85,7 @@ class NetworkManager {
 //                    Logger.shared.log(message: arrItems)
                     
                     let jsonData = try JSONSerialization.data(withJSONObject: arrItems)
-                    let models = try! JSONDecoder().decode([T].self, from: jsonData)
+                    let models = try JSONDecoder().decode([T].self, from: jsonData)
                     
                     DispatchQueue.main.async {
                         promise(.success(models))
